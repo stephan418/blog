@@ -5,9 +5,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: #1e212b;
+  padding: 2rem;
+  display: grid;
+  justify-items: center;
+  padding-top: 6rem;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    padding: 0.2rem;
+  }
 }

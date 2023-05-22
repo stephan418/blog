@@ -1,0 +1,20 @@
+.post {
+  background: #282b35;
+  padding: 1.5em;
+  color: white;
+
+  display: grid;
+  grid-template: 2fr auto 1fr / 1fr;
+  border-radius: 0.4em;
+  cursor: pointer;
+
+  max-width: 1200px;
+}
+
+.title {
+  margin: 0;
+}
+
+.author > * {
+  display: contents;
+}

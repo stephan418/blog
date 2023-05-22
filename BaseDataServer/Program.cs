@@ -83,6 +83,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(config =>
+{
+    config.AllowAnyHeader();
+    config.AllowAnyMethod();
+    config.AllowAnyOrigin();
+});
+
 app.UseAuthentication();
 
 app.UseAuthorization();

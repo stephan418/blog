@@ -17,7 +17,7 @@ namespace BaseDataServer.Models.Posts
 
         public async Task<Result<Post, ErrorType>> CreatePostAsync(Guid userId, PostDto dto)
         {
-            User? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            User? user = await _context.Users.Include(p => p.Profile).FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user is null)
             {
@@ -56,12 +56,12 @@ namespace BaseDataServer.Models.Posts
 
         public async Task<Result<IEnumerable<Post>>> GetAllAsync()
         {
-            return new(_context.Posts.Include(p => p.User));
+            return new(_context.Posts.Include(p => p.User).Include(p => p.User.Profile));
         }
 
         public async Task<Result<Post?>> GetByIdAsync(Guid id)
         {
-            return await _context.Posts.Include(p => p.User).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Posts.Include(p => p.User).Include(p => p.User.Profile).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Result<Post, ErrorType>> UpdatePostAsync(Guid id, PostDto dto)

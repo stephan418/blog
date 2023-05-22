@@ -25,6 +25,7 @@ namespace BaseDataServer
             postResultMap.ForMember(_ => _.Title, opt => opt.MapFrom(_ => _.Title));
             postResultMap.ForMember(_ => _.Text, opt => opt.MapFrom(_ => _.Text));
             postResultMap.ForMember(_ => _.Author, opt => opt.MapFrom(_ => _.User.Id));
+            postResultMap.ForMember(_ => _.AuthorName, opt => opt.MapFrom(_ => _.User.Profile!.Name));
         }
     }
 }

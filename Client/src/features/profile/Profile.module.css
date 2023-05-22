@@ -1,0 +1,28 @@
+.profile {
+  background: #282b35;
+  color: white;
+  aspect-ratio: 2/3;
+  width: 150px;
+  height: 200px;
+  padding: 1.5em;
+
+  display: grid;
+  justify-items: center;
+  gap: 1em;
+
+  cursor: pointer;
+}
+
+.picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: red;
+  display: block;
+}
+
+.description {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  mask-image: linear-gradient(black 0%, black 70%, transparent 90%);
+}

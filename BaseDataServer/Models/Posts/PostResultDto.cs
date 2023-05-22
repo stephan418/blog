@@ -9,5 +9,7 @@
         public string Text { get; set; }
 
         public Guid Author { get; set; }
+
+        public string AuthorName { get; set; }
     }
 }
