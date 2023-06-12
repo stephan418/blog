@@ -17,7 +17,7 @@ namespace BaseDataServer.Controllers
     {
         private IPostRepository _postRepository;
         private IMapper _mapper;
-        
+
         public PostController(IPostRepository postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
@@ -52,7 +52,7 @@ namespace BaseDataServer.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<PostResultDto>> CreateProfile([FromBody] PostDto dto)
+        public async Task<ActionResult<PostResultDto>> CreatePost([FromBody] PostDto dto)
         {
             Guid id = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -72,7 +72,7 @@ namespace BaseDataServer.Controllers
 
         [HttpPatch("{id}")]
         [Authorize]
-        public async Task<ActionResult<PostResultDto>> UpdateProfile([FromRoute] Guid id, [FromBody] JsonPatchDocument<PostDto> dto)
+        public async Task<ActionResult<PostResultDto>> UpdatePost([FromRoute] Guid id, [FromBody] JsonPatchDocument<PostDto> dto)
         {
             Guid claimsId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -95,6 +95,38 @@ namespace BaseDataServer.Controllers
             Post updatedPost = (await _postRepository.UpdatePostAsync(id, postDto)).Value;
 
             return _mapper.Map<PostResultDto>(updatedPost);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> DeletePost([FromRoute] Guid id)
+        {
+            Guid claimsId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            Post? postResult = (await _postRepository.GetByIdAsync(id)).Value;
+
+            if (postResult is null)
+            {
+                return NotFound();
+            }
+
+            if (postResult.User.Id != claimsId)
+            {
+                return Forbid();
+            }
+
+            Result<object, ErrorType> result = await _postRepository.DeletePostAsync(id);
+
+            if (!result.IsSuccessful)
+            {
+                return result.Error switch
+                {
+                    ErrorType.TargetObjectNotFound => NotFound(),
+                    _ => StatusCode(500)
+                };
+            }
+
+            return NoContent();
         }
     }
 }

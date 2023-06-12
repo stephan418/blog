@@ -2,11 +2,11 @@
   background: none;
   border-radius: 0.4em;
   outline: none;
-  border: 2px #9a9ea9 solid;
+  border: 2px var(--secondaryAccent) solid;
 
   padding: 0.5em;
   font-size: 1.2em;
-  color: white;
+  color: var(--foreground);
   height: 2em;
   width: 70%;
 }
@@ -15,11 +15,11 @@
   background: none;
   border-radius: 0.4em;
   outline: none;
-  border: 2px #9a9ea9 solid;
+  border: 2px var(--secondaryAccent) solid;
 
   padding: 0.5em;
   font-size: 1.2em;
-  color: white;
+  color: var(--foreground);
   width: 70%;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .form h1 {
-  color: white;
+  color: var(--foreground);
 }
 
 .imagePreview {
@@ -46,8 +46,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 2px #9a9ea9 solid;
-  color: white;
+  border: 2px var(--secondaryAccent) solid;
+  color: var(--foreground);
 }
 
 .imagePreview > span {

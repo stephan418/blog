@@ -17,6 +17,16 @@ interface PostDto {
   text: string;
 }
 
+export async function fetchPostApi(postId: string) {
+  return fetch(`${host_url}/api/post/${postId}`).then(async (res) => {
+    if (!res.ok) {
+      throw new Error("Could not fetch posts");
+    }
+
+    return await res.json();
+  });
+}
+
 export async function createPost(post: PostDto, token: string) {
   const body = JSON.stringify(post);
 
@@ -65,5 +75,16 @@ export async function updatePost(id: string, post: PostDto, token: string) {
     }
 
     return await res.json();
+  });
+}
+
+export async function deletePost(id: string, token: string) {
+  return await fetch(`${host_url}/api/post/${id}`, {
+    method: "DELETE",
+    headers: new Headers({ Authorization: `Bearer ${token}` }),
+  }).then(async (res) => {
+    if (!res.ok) {
+      throw new Error("Could not delete post", await res.json());
+    }
   });
 }

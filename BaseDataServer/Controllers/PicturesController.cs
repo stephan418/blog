@@ -25,7 +25,6 @@ namespace BaseDataServer.Controllers
 
         [HttpPost]
         [Authorize]
-        [RequestSizeLimit(2 * 1024 * 1024)]
         public async Task<ActionResult<PictureMetaDto>> CreatePostAsync([FromForm] PictureDto dto)
         {
             Guid userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -51,16 +50,36 @@ namespace BaseDataServer.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetBinaryPicture([FromRoute] Guid id)
+        public async Task<ActionResult> GetBinaryPicture([FromRoute] Guid id, [FromQuery] int? width, [FromQuery] int? height)
         {
             Picture? picture = (await _pictureRepository.GetByIdAsync(id)).Value;
+
+            byte[] content = picture.Content;
 
             if (picture is null)
             {
                 return NotFound();
             }
 
-            return File(picture.Content, picture.ContentType);
+            if (width is not null || height is not null)
+            {
+                Image image = Image.Load(content);
+
+                if (width is not null)
+                {
+                    image.Mutate(x => x.Resize(width.Value, 0));
+                } else
+                {
+                    image.Mutate(x => x.Resize(0, height.Value));
+                }
+
+                using var stream = new MemoryStream();
+                image.Save(stream, image.Metadata.DecodedImageFormat);
+
+                content = stream.ToArray();
+            }
+
+            return File(content, picture.ContentType);
         }
     }
 }

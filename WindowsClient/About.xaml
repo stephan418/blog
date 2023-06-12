@@ -1,0 +1,15 @@
+﻿<Window x:Class="WindowsClient.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowsClient"
+        mc:Ignorable="d"
+        Title="About" Height="450" Width="450">
+    <StackPanel>
+        <Label HorizontalAlignment="Center" FontWeight="Bold" FontSize="30">About</Label>
+        <Label HorizontalAlignment="Center" FontSize="15">Skriptum for Window v.0.0.1</Label>
+        <TextBlock HorizontalAlignment="Center" FontSize="15" TextWrapping="Wrap">Please note that this is not at all a usable replacement for the Skriptum Web Client!</TextBlock>
+        <Button Width="200" Margin="20" Click="Button_Click">Open Skriptum Web</Button>
+    </StackPanel>
+</Window>

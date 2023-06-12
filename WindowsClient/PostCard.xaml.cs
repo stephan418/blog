@@ -12,28 +12,34 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsClient.Models;
 
 namespace WindowsClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PostCard.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PostCard : UserControl
     {
-        public MainWindow()
+        private Post _Post;
+
+        public PostCard()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void setPost(Post post) 
         {
-
+            _Post = post;
+            Title.Text = post.Title;
+            Text.Text = post.Text;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            About about = new About();
-            about.Show();
+            PostDetail postDetail = new PostDetail();
+            postDetail.FetchPost(_Post.Id);
+            postDetail.Show();
         }
     }
 }

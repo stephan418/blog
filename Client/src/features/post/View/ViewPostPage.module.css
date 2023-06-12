@@ -1,0 +1,28 @@
+.container {
+  color: var(--foreground);
+
+  width: 80vw;
+}
+
+.container img {
+  max-width: 100%;
+}
+
+.buttons {
+  width: 100%;
+  margin: 2em 0;
+
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.buttons button {
+  width: 5em;
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    font-size: 0.8rem;
+  }
+}

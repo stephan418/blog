@@ -70,7 +70,7 @@ export const PostForm: React.FC<PostFormProps> = ({
         />
       </div>
 
-      <Button onClick={onSubmit} className={styles.button}>
+      <Button onClick={onSubmit} className={styles.button} color="accent">
         Save
       </Button>
 

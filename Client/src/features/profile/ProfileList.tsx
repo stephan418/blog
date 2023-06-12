@@ -7,6 +7,7 @@ import {
   selectProfileStatus,
 } from "./profileSlice";
 import styles from "./ProfileList.module.css";
+import { Oval } from "react-loader-spinner";
 
 const ProfileList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,11 +21,21 @@ const ProfileList: React.FC = () => {
     }
   }, [state]);
 
+  if (state === "loading") {
+    return (
+      <div className={styles.list}>
+        <Oval color="grey" secondaryColor="#00000000" />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.list}>
-      {profiles.map((profile) => (
-        <Profile profile={profile} />
-      ))}
+      {profiles.length <= 0 ? (
+        <p>There are currently no profiles!</p>
+      ) : (
+        profiles.map((profile) => <Profile profile={profile} />)
+      )}
     </div>
   );
 };

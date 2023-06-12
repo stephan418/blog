@@ -76,6 +76,8 @@ builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -91,6 +93,8 @@ app.UseCors(config =>
     config.AllowAnyMethod();
     config.AllowAnyOrigin();
 });
+
+app.MapHealthChecks("/api/health");
 
 app.UseAuthentication();
 

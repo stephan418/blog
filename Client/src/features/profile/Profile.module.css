@@ -1,6 +1,6 @@
 .profile {
-  background: #282b35;
-  color: white;
+  background: var(--secondary);
+  color: var(--foreground);
   aspect-ratio: 2/3;
   width: 150px;
   height: 200px;

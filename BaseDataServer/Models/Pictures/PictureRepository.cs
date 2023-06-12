@@ -2,6 +2,7 @@
 using BaseDataServer.Models.Users;
 using DotNext;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp.Memory;
 
 namespace BaseDataServer.Models.Pictures
 {
@@ -53,7 +54,19 @@ namespace BaseDataServer.Models.Pictures
 
             using var memoryStream = new MemoryStream();
 
-            dto.Picture.CopyTo(memoryStream);
+            Image image = Image.Load(dto.Picture.OpenReadStream());
+
+            if (image.Bounds.Width > 1920)
+            {
+                image.Mutate(x => x.Resize(1920, 0));
+            }
+
+            if (image.Bounds.Height > 1080)
+            {
+                image.Mutate(x => x.Resize(0, 1080));
+            }
+
+            image.Save(memoryStream, image.Metadata.DecodedImageFormat);
 
             // Only allow < 2 MB
             if (memoryStream.Length < 2097152)
@@ -63,8 +76,7 @@ namespace BaseDataServer.Models.Pictures
                     Content = memoryStream.ToArray(),
                     Description = dto.Description,
                     OriginalName = dto.Picture.FileName,
-                    ContentType = dto.Picture.ContentType,
-                    Author = user
+                    ContentType = dto.Picture.ContentType, Author = user
                 };
 
                 _context.Pictures.Add(picture);

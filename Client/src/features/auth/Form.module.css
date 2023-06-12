@@ -12,27 +12,27 @@
   padding: 2rem;
   gap: 1rem;
 
-  background: #282b35;
+  background: var(--secondary);
   border-radius: 0.5rem;
 
-  color: white;
+  color: var(--foreground);
 }
 
 .input {
   background: none;
   border-radius: 0.4em;
   outline: none;
-  border: 2px #9a9ea9 solid;
+  border: 2px var(--secondaryAccent) solid;
 
   padding: 0.5em;
   font-size: 1.2em;
-  color: white;
+  color: var(--foreground);
   height: 2em;
   width: 70%;
 }
 
 a {
-  color: white;
+  color: var(--foreground);
 }
 
 @media screen and (max-width: 700px) {

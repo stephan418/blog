@@ -1,3 +1,3 @@
 .ErrorHint {
-    color: #B93535;
+  color: var(--warn);
 }

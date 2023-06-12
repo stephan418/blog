@@ -105,6 +105,7 @@ export function SignUpForm() {
         setIsOpen={setShowSuccessModal}
         title="Account created"
         message="Your account was successfully created! You can now sign in!"
+        type="success"
       ></Modal>
     </motion.form>
   );

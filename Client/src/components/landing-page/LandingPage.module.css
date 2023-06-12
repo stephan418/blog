@@ -1,7 +1,7 @@
 .landingPage {
   width: 60vw;
 
-  color: white;
+  color: var(--foreground);
 }
 
 .header h2 {

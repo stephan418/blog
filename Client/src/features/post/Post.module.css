@@ -1,14 +1,12 @@
 .post {
-  background: #282b35;
+  background: var(--secondary);
   padding: 1.5em;
-  color: white;
+  color: var(--foreground);
 
   display: grid;
   grid-template: 2fr auto 1fr / 1fr;
   border-radius: 0.4em;
   cursor: pointer;
-
-  max-width: 1200px;
 }
 
 .title {

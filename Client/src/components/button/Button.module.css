@@ -1,7 +1,7 @@
 .button {
-  background: #9a9ea9;
-  color: white;
-  font-size: 1.2rem;
+  background: var(--secondaryAccent);
+  color: var(--foreground);
+  font-size: 1.2em;
   border-radius: 0.4em;
   outline: none;
   border: none;

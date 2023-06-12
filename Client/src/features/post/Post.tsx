@@ -17,14 +17,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
   }
 
   return (
-    <div
-      className={styles.post}
-      onClick={() => navigate(`/post/${post.id}/edit`)}
-    >
+    <div className={styles.post} onClick={() => navigate(`/post/${post.id}`)}>
       <h2 className={styles.title}>{post.title}</h2>
       <p className={styles.text}>{text}</p>
       <div className={styles.author}>
-        <span className={styles.bold}>By</span>{" "}
+        <span className={styles.bold}>By </span>
         <span className={styles.authorName}>{post.authorName}</span>
       </div>
     </div>

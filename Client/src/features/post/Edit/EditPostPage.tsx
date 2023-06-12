@@ -77,9 +77,11 @@ export const EditPostPage: React.FC = () => {
     />
   );
 
+  if (!post) return <></>;
+
   return (
     <PostForm
-      formTitle="Create a post"
+      formTitle={`Edit '${post!.title}'`}
       onSubmit={submit}
       setText={setContent}
       text={content}

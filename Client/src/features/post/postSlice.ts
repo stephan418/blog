@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { fetchPostsApi } from "./postApi";
+import { fetchPostApi, fetchPostsApi } from "./postApi";
 
 export interface Post {
   id: string;
@@ -12,7 +12,7 @@ export interface Post {
 
 export interface PostState {
   posts: Array<Post>;
-  status: "unloaded" | "loading" | "loaded" | "failed";
+  status: "unloaded" | "loading" | "loaded" | "failed" | "partial";
 }
 
 const initialState: PostState = { posts: [], status: "unloaded" };
@@ -20,6 +20,13 @@ const initialState: PostState = { posts: [], status: "unloaded" };
 export const fetchPosts = createAsyncThunk("post/fetch", async () => {
   return await fetchPostsApi();
 });
+
+export const fetchPost = createAsyncThunk(
+  "post/fetchSingle",
+  async (postId: string) => {
+    return await fetchPostApi(postId);
+  },
+);
 
 export const postSlice = createSlice({
   name: "post",
@@ -35,6 +42,21 @@ export const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state) => {
+        state.status = "failed";
+      });
+
+    builder
+      .addCase(fetchPost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchPost.fulfilled, (state, action) => {
+        state.posts = state.posts.filter(
+          (post) => post.id !== action.payload.id,
+        );
+        state.posts.push(action.payload);
+        state.status = "partial";
+      })
+      .addCase(fetchPost.rejected, (state) => {
         state.status = "failed";
       });
   },

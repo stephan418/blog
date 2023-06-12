@@ -14,7 +14,7 @@
   align-items: center;
   gap: 1em;
 
-  color: white;
+  color: var(--foreground);
 }
 
 .container > div {
@@ -30,18 +30,16 @@
   background: none;
   border-radius: 0.4em;
   outline: none;
-  border: 2px #9a9ea9 solid;
+  border: 2px var(--secondaryAccent) solid;
 
   padding: 0.5em;
   font-size: 1.2em;
-  color: white;
+  color: var(--foreground);
   height: 2em;
   width: 70%;
   max-width: 700px;
 }
 
 .button {
-  background: #06d6a0;
-
   max-width: 200px;
 }

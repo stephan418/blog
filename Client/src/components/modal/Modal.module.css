@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.dialog button {
+  font-size: 1em;
+}
+
 .overlayDiv {
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
@@ -20,11 +24,11 @@
   position: fixed;
   max-width: 700px;
 
-  background: #282b35;
+  background: var(--secondary);
   padding: 2em;
   border-radius: 0.4em;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  color: white;
+  color: var(--foreground);
 }
 
 .dialogContentDiv h2 {
@@ -36,12 +40,14 @@
 .buttonBar {
   display: flex;
   justify-content: center;
+
+  gap: 1em;
 }
 
 .closeButton {
   background: #b93535;
-  color: white;
-  font-size: 1em;
+  color: var(--foreground);
+  font-size: 1em !important;
   border-radius: 0.4em;
   outline: none;
   border: none;

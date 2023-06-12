@@ -2,6 +2,9 @@ import React from "react";
 import { Dialog } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Modal.module.css";
+import { useAppSelector } from "../../app/hooks";
+import { getVars, selectTheme } from "../../features/theming/themingSlice";
+import { Button } from "../button/Button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,6 +13,7 @@ interface ModalProps {
   message: string;
   additionalButtons?: React.ReactNode[];
   closeOnOverlayClick?: boolean;
+  type?: "success" | "error" | "info";
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -19,7 +23,18 @@ export const Modal: React.FC<ModalProps> = ({
   message,
   additionalButtons,
   closeOnOverlayClick = true,
+  type = "info",
 }) => {
+  const theme = useAppSelector(selectTheme);
+  const vars = getVars(theme);
+
+  const buttonColor =
+    type === "error"
+      ? "warn"
+      : type === "success"
+      ? "primary"
+      : "secondaryAccent";
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -49,16 +64,18 @@ export const Modal: React.FC<ModalProps> = ({
               ease: "backInOut",
             }}
             className={styles.dialogContentDiv}
+            style={{ ...vars } as any}
           >
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description>{message}</Dialog.Description>
             <div className={styles.buttonBar}>
-              <button
+              <Button
                 className={styles.closeButton}
                 onClick={() => setIsOpen(false)}
+                color={buttonColor}
               >
                 Close
-              </button>
+              </Button>
               {additionalButtons}
             </div>
           </motion.div>

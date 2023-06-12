@@ -7,7 +7,7 @@
   right: 0;
   z-index: 8;
 
-  background: #282b35;
+  background: var(--secondary);
 }
 
 .navbar > img {
@@ -30,4 +30,19 @@
   display: flex;
 
   gap: 1em;
+}
+
+.switcher {
+  color: var(--foreground);
+  cursor: pointer;
+
+  position: absolute;
+  left: 2em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.link {
+  color: var(--foreground);
+  cursor: pointer;
 }
