@@ -33,7 +33,11 @@ namespace BaseDataServer.Controllers
                 return Forbid();
             }
 
-            return Ok(CreateSessionToken(user));
+            return Ok(new SessionResultDto()
+            {
+                Id = user.Id,
+                Token = CreateSessionToken(user) 
+            });
         }
 
         [Authorize]

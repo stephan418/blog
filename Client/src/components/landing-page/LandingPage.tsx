@@ -2,10 +2,17 @@ import React from "react";
 import PostList from "../../features/post/PostList";
 import ProfileList from "../../features/profile/ProfileList";
 import styles from "./LandingPage.module.css";
+import { motion } from "framer-motion";
 
 const LandingPage: React.FC = () => {
   return (
-    <div className={styles.landingPage}>
+    <motion.div
+      className={styles.landingPage}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ type: "tween", duration: 0.1 }}
+    >
       <header className={styles.header}>
         <h1>Explore, Connect and Create</h1>
         <h2>
@@ -22,7 +29,7 @@ const LandingPage: React.FC = () => {
         <h1>Connect with community members</h1>
         <ProfileList />
       </section>
-    </div>
+    </motion.div>
   );
 };
 

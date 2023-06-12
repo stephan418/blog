@@ -3,9 +3,11 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import ErrorHintList from "../../components/error-hint/ErrorHintList";
 import { authenticate, selectStatus } from "./authSlice";
 import styles from "./Form.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Modal } from "../../components/modal/Modal";
+import { Button } from "../../components/button/Button";
 
 interface FieldValues {
   username: string;
@@ -22,13 +24,21 @@ export function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [credentialsModalIsOpen, setCredentialsModalIsOpen] = useState(false);
+
   const authenticated = useAppSelector(selectStatus);
 
   useEffect(() => {
     if (authenticated === "authenticated") {
       navigate("/");
+    } else if (authenticated === "failed") {
+      setCredentialsModalIsOpen(true);
     }
   }, [authenticated]);
+
+  useEffect(() => {
+    setCredentialsModalIsOpen(false);
+  }, []);
 
   const onSubmit = async (data: FieldValues) => {
     dispatch(authenticate(data));
@@ -63,10 +73,16 @@ export function LoginForm() {
       />
 
       <ErrorHintList messages={errorMessages} />
-      <input type="submit" className={styles.button} value="Sign in" />
+      <Button type="submit">Sign in</Button>
       <p>
         <Link to="/signup">Sign up</Link> instead?
       </p>
+      <Modal
+        isOpen={credentialsModalIsOpen}
+        setIsOpen={setCredentialsModalIsOpen}
+        title="Wrong credentials"
+        message="The username and password combination you entered is not correct!"
+      ></Modal>
     </motion.form>
   );
 }

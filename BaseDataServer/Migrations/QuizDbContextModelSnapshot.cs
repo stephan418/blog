@@ -22,6 +22,38 @@ namespace BaseDataServer.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BaseDataServer.Models.Pictures.Picture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OriginalName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Pictures");
+                });
+
             modelBuilder.Entity("BaseDataServer.Models.Posts.Post", b =>
                 {
                     b.Property<Guid>("Id")
@@ -58,7 +90,12 @@ namespace BaseDataServer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("PictureId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PictureId");
 
                     b.ToTable("Profiles");
                 });
@@ -88,6 +125,17 @@ namespace BaseDataServer.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BaseDataServer.Models.Pictures.Picture", b =>
+                {
+                    b.HasOne("BaseDataServer.Models.Users.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("BaseDataServer.Models.Posts.Post", b =>
                 {
                     b.HasOne("BaseDataServer.Models.Users.User", "User")
@@ -106,6 +154,12 @@ namespace BaseDataServer.Migrations
                         .HasForeignKey("BaseDataServer.Models.Profiles.Profile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BaseDataServer.Models.Pictures.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId");
+
+                    b.Navigation("Picture");
 
                     b.Navigation("User");
                 });

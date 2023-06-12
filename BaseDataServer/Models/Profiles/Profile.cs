@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using BaseDataServer.Models.Pictures;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BaseDataServer.Models.Profiles
 {
@@ -10,5 +11,7 @@ namespace BaseDataServer.Models.Profiles
         public string Name { get; set; }
 
         public string? Description { get; set; }
+
+        public Picture? Picture { get; set; }
     }
 }

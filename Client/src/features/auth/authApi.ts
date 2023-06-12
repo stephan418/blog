@@ -12,7 +12,7 @@ export function fetchToken(username: string, password: string) {
       }
       return res;
     })
-    .then((res) => res.text());
+    .then((res) => res.json());
 }
 
 export function createAccount(username: string, password: string) {

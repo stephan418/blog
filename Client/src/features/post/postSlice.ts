@@ -42,5 +42,7 @@ export const postSlice = createSlice({
 
 export const selectPosts = (state: RootState) => state.posts.posts;
 export const selectPostStatus = (state: RootState) => state.posts.status;
+export const selectPost = (id: string) => (state: RootState) =>
+  state.posts.posts.find((post) => post.id === id);
 
 export default postSlice.reducer;

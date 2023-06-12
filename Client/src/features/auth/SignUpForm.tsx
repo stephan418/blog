@@ -3,10 +3,12 @@ import ErrorHintList from "../../components/error-hint/ErrorHintList";
 import { createAccount } from "./authApi";
 import styles from "./Form.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { selectStatus } from "./authSlice";
 import { motion } from "framer-motion";
+import { Modal } from "../../components/modal/Modal";
+import { Button } from "../../components/button/Button";
 
 interface FieldValues {
   username: string;
@@ -23,6 +25,9 @@ export function SignUpForm() {
   const navigate = useNavigate();
   const state = useAppSelector(selectStatus);
 
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   useEffect(() => {
     if (state === "authenticated") {
       navigate("/");
@@ -34,12 +39,12 @@ export function SignUpForm() {
 
     if (!res.ok) {
       if (res.status === 409) {
-        alert("Username is already taken");
+        setShowErrorModal(true);
       } else {
         console.error(res);
       }
     } else {
-      alert("Account created");
+      setShowSuccessModal(true);
     }
   };
 
@@ -84,10 +89,23 @@ export function SignUpForm() {
       />
 
       <ErrorHintList messages={errorMessages} />
-      <input type="submit" className={styles.button} value="Sign up" />
+      <Button type="submit">Sign up</Button>
       <p>
         <Link to="/signin">Sign in</Link> instead?
       </p>
+      <Modal
+        isOpen={showErrorModal}
+        setIsOpen={setShowErrorModal}
+        title="Account creation error"
+        message="An account with this username does already exist. Please try another one!"
+      ></Modal>
+
+      <Modal
+        isOpen={showSuccessModal}
+        setIsOpen={setShowSuccessModal}
+        title="Account created"
+        message="Your account was successfully created! You can now sign in!"
+      ></Modal>
     </motion.form>
   );
 }

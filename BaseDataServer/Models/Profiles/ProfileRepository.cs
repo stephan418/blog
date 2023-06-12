@@ -1,4 +1,5 @@
-﻿using BaseDataServer.Models.Users;
+﻿using BaseDataServer.Models.Pictures;
+using BaseDataServer.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +16,23 @@ namespace BaseDataServer.Models.Profiles
 
         public async Task<IEnumerable<Profile>> GetAllAsync()
         {
-            return _context.Profiles.Include(p => p.User);
+            return _context.Profiles.Include(p => p.User).Include(p => p.Picture);
         }
 
         public async Task<Profile?> CreateProfileAsync(Guid userId, ProfileDto dto)
         {
             Users.User? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            Picture? picture = null;
+
+            if (dto.PictureId is not null)
+            {
+                picture = await _context.Pictures.FirstOrDefaultAsync(p => p.Id == dto.PictureId);
+
+                if (picture is null)
+                {
+                    return null;
+                }
+            }
 
             if (user is null)
             {
@@ -37,6 +49,7 @@ namespace BaseDataServer.Models.Profiles
                 User = user,
                 Name = dto.Name,
                 Description = dto.Description,
+                Picture = picture,
             };
 
             _context.Profiles.Add(profile);
@@ -57,7 +70,7 @@ namespace BaseDataServer.Models.Profiles
 
         public async Task<Profile?> GetByIdAsync(Guid userId)
         {
-            return await _context.Profiles.Include(p => p.User).FirstOrDefaultAsync(p => p.User.Id == userId);
+            return await _context.Profiles.Include(p => p.User).Include(p => p.Picture).FirstOrDefaultAsync(p => p.User.Id == userId);
         }
 
         public async Task<Profile?> UpdateProfileAsync(Guid userId, ProfileDto dto)
@@ -69,8 +82,21 @@ namespace BaseDataServer.Models.Profiles
                 return null;
             }
 
+            Picture? picture = null;
+
+            if (dto.PictureId is not null)
+            {
+                picture = await _context.Pictures.FirstOrDefaultAsync(p => p.Id == dto.PictureId);
+
+                if (picture is null)
+                {
+                    return null;
+                }
+            }
+
             profile.Name = dto.Name;
             profile.Description = dto.Description;
+            profile.Picture = picture;
 
             await _context.SaveChangesAsync();
 

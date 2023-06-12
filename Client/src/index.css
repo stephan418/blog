@@ -7,10 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: #1e212b;
-  padding: 2rem;
-  display: grid;
-  justify-items: center;
-  padding-top: 6rem;
 }
 
 code {
@@ -18,8 +14,10 @@ code {
     monospace;
 }
 
-@media screen and (max-width: 400px) {
-  body {
-    padding: 0.2rem;
-  }
+.pageRoot {
+  position: absolute;
+
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
 }

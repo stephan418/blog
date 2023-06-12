@@ -1,7 +1,10 @@
 .form {
-  display: grid;
-  grid: 1fr 1fr 1fr 1fr 1fr 1em / 1fr;
+  display: flex;
+  flex-direction: column;
   font-size: 1rem;
+
+  justify-content: center;
+  align-items: center;
 
   width: 28em;
   height: 25em;
@@ -25,20 +28,7 @@
   font-size: 1.2em;
   color: white;
   height: 2em;
-}
-
-.button {
-  background: #9a9ea9;
-  color: white;
-  font-size: 1.2rem;
-  border-radius: 0.4em;
-  outline: none;
-  border: none;
-
-  width: 40%;
-  height: 2em;
-  justify-self: center;
-  cursor: pointer;
+  width: 70%;
 }
 
 a {
@@ -49,6 +39,6 @@ a {
   .form {
     font-size: 0.8rem;
 
-    width: 80%;
+    width: 60vw;
   }
 }

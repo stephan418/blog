@@ -1,0 +1,70 @@
+.input {
+  background: none;
+  border-radius: 0.4em;
+  outline: none;
+  border: 2px #9a9ea9 solid;
+
+  padding: 0.5em;
+  font-size: 1.2em;
+  color: white;
+  height: 2em;
+  width: 70%;
+}
+
+.textarea {
+  background: none;
+  border-radius: 0.4em;
+  outline: none;
+  border: 2px #9a9ea9 solid;
+
+  padding: 0.5em;
+  font-size: 1.2em;
+  color: white;
+  width: 70%;
+}
+
+.form {
+  width: 50vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.form h1 {
+  color: white;
+}
+
+.imagePreview {
+  height: 5rem;
+  aspect-ratio: 1;
+
+  border-radius: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px #9a9ea9 solid;
+  color: white;
+}
+
+.imagePreview > span {
+  transform-origin: center center;
+  transform: scale(0.8);
+
+  text-align: center;
+}
+
+.imagePreview > img {
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .form {
+    font-size: 0.8rem;
+
+    width: 80vw;
+  }
+}

@@ -15,12 +15,12 @@ import RouterRoot from "./app/RouterRoot";
 import Navbar from "./components/navbar/Navbar";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <Navbar />
+  <Provider store={store}>
+    <Router>
+      <Navbar />
+      <div className="pageRoot">
         <RouterRoot />
-      </Router>
-    </Provider>
-  </React.StrictMode>,
+      </div>
+    </Router>
+  </Provider>,
 );

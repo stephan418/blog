@@ -1,4 +1,5 @@
 using AutoMapper;
+using BaseDataServer.Models.Pictures;
 using BaseDataServer.Models.Posts;
 using BaseDataServer.Models.Profiles;
 using BaseDataServer.Models.Users;
@@ -71,6 +72,7 @@ builder.Services.AddSingleton<JwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

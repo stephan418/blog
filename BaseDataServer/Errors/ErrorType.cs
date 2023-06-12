@@ -4,5 +4,6 @@
     {
         TargetObjectNotFound = 0,
         DependentObjectNotFound,
+        FileTooLarge,
     }
 }

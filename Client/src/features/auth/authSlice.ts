@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import { fetchToken } from "./authApi";
+import { fetchProfile } from "../profile/profileSlice";
 
 export interface AuthState {
   token?: string;
@@ -22,8 +23,10 @@ const initialState: AuthState = {
 // typically used to make async requests.
 export const authenticate = createAsyncThunk(
   "auth/authenticate",
-  async (auth: { username: string; password: string }) => {
+  async (auth: { username: string; password: string }, thunkAPI) => {
     const response = await fetchToken(auth.username, auth.password);
+
+    thunkAPI.dispatch(fetchProfile(response.id));
     // The value we return becomes the `fulfilled` action payload
     return response as any;
   },
@@ -43,7 +46,8 @@ export const counterSlice = createSlice({
       })
       .addCase(authenticate.fulfilled, (state, action) => {
         state.status = "authenticated";
-        state.token = action.payload;
+        state.token = action.payload.token;
+        state.id = action.payload.id;
         state.username = action.meta.arg.username;
       })
       .addCase(authenticate.rejected, (state) => {
@@ -54,6 +58,8 @@ export const counterSlice = createSlice({
 
 export const selectStatus = (state: RootState) => state.counter.status;
 export const selectUsername = (state: RootState) => state.counter.username;
+export const selectToken = (state: RootState) => state.counter.token;
+export const selectUserId = (state: RootState) => state.counter.id;
 
 export const {} = counterSlice.actions;
 

@@ -1,4 +1,5 @@
-﻿using BaseDataServer.Models.Posts;
+﻿using BaseDataServer.Models.Pictures;
+using BaseDataServer.Models.Posts;
 using BaseDataServer.Models.Profiles;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,5 +14,7 @@ namespace BaseDataServer.Models.Users
         public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Picture> Pictures { get; set; }
     }
 }
